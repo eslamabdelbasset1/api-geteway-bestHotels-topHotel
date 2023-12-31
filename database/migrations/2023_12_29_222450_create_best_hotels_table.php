@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('best_hotels', function (Blueprint $table) {
             $table->id();
-            $table->string('hotel');
-            $table->unsignedTinyInteger('hotelRate');
+            $table->string('hotelName');
+            $table->unsignedTinyInteger('rate');
             $table->decimal('hotelFare', 8, 2);
             $table->text('roomAmenities');
             $table->timestamps();
