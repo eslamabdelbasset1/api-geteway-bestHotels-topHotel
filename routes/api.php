@@ -20,6 +20,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::prefix('best-hotels')->middleware('simulate.latency')->group(function () {
+    Route::resource('/', BestHotelController::class);
+});
 
-Route::resource('best-hotels', BestHotelController::class);
-Route::resource('top-hotels', TopHotelController::class);
+Route::prefix('top-hotels')->middleware('simulate.latency')->group(function () {
+    Route::resource('/', TopHotelController::class);
+});

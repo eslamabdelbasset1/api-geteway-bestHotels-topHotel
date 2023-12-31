@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('rate');
             $table->decimal('price', 8, 2);
             $table->decimal('discount', 8, 2)->nullable();
-            $table->text('amenities');
+            $table->text('roomAmenities');
             $table->timestamps();
         });
     }
