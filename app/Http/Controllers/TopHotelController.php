@@ -13,8 +13,6 @@ class TopHotelController extends Controller
      */
     public function index()
     {
-        // Simulate a delay of 3 seconds
-        sleep(3);
         $bestHotels = TopHotel::all();
         return TopHotelResourceCollection::collection($bestHotels);
     }
