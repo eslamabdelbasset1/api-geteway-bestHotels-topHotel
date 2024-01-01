@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\BestHotelResourceCollection;
+use App\Jobs\ProcessBestHotelsJob;
+use App\Jobs\ProcessTopHotelsJob;
 use App\Models\BestHotel;
 use App\Services\BestHotelsService;
 use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\MappedReader;
+use Illuminate\Support\Facades\Redis;
 
 
 class BestHotelController extends Controller
@@ -40,6 +42,52 @@ class BestHotelController extends Controller
 //        $topHotelsData = $this->readChunkedData($topHotelsFilePath);
         return view('excel_data', compact('bestHotelsData', 'topHotelsData'));
     }
+
+    public function processExcelSheets()
+    {
+        ProcessBestHotelsJob::dispatch();
+        ProcessTopHotelsJob::dispatch();
+
+        return response()->json(['message' => 'Jobs dispatched to process hotel data.']);
+    }
+
+
+    /**
+     * @throws \JsonException
+     */
+    public function showDataInView()
+    {
+        $bestHotels = $this->getHotelsData('best_hotel');
+
+        $topHotels = $this->getHotelsData('top_hotel');
+
+        return view('redis_view', compact('bestHotels', 'topHotels'));
+    }
+
+    /**
+     * @throws \JsonException
+     */
+    protected function getHotelsData($prefix): array
+    {
+        $keys = Redis::keys("$prefix:*");
+        $hotels = [];
+        foreach ($keys as $key) {
+            $prefix = 'laravel_database_';
+            $desiredKey = substr($key, strlen($prefix));
+            $data = Redis::hgetall($desiredKey);
+            $hotels[] = $data;
+
+        }
+        return $hotels;
+    }
+
+
+
+
+
+
+
+
 
 //    private function readChunkedData($filePath): array
 //    {
