@@ -38,4 +38,4 @@ class BestHotelController extends Controller
     }
 
 }
-//Data Chunking
+

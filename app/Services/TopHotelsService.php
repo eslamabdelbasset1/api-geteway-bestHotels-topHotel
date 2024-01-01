@@ -17,7 +17,8 @@ class TopHotelsService implements FromCollection, WithHeadings
             return new BestHotel([
                 'hotelName' => $data['hotelName'],
                 'rate' => $data['rate'],
-                'hotelFare' => $data['hotelFare'],
+                'price' => $data['price'],
+                'discount' => $data['discount'],
                 'roomAmenities' => $data['roomAmenities'],
             ]);
         });
@@ -26,7 +27,7 @@ class TopHotelsService implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            'hotelName', 'rate', 'hotelFare', 'roomAmenities',
+            'hotelName', 'rate', 'price', 'discount', 'roomAmenities',
         ];
     }
 
