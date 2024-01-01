@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BestHotelController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\TopHotelController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,6 @@ Route::get('/', function () {
 Route::get('/show-excel', [BestHotelController::class, 'BestHotelsReadExcel']);
 //Route::get('/show-excel', [TopHotelController::class, 'topHotelsReadExcel']);
 
+Route::get('/reservation', [ReservationController::class, 'showForm']);
+Route::post('/reservation', [ReservationController::class, 'create'])->name('reservation.create');
+// Other necessary routes

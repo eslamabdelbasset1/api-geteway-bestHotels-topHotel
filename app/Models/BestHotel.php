@@ -11,4 +11,9 @@ class BestHotel extends Model
     protected $fillable = [
         'hotelName', 'rate', 'hotelFare', 'roomAmenities',
     ];
+
+    public function reservation()
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }

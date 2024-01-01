@@ -11,5 +11,9 @@ class TopHotel extends Model
     protected $fillable = [
         'hotelName', 'rate', 'price', 'discount', 'roomAmenities',
     ];
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class, 'id');
+    }
 
 }
