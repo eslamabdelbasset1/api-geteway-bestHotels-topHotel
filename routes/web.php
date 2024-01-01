@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BestHotelController;
+use App\Http\Controllers\TopHotelController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/show-excel', [BestHotelController::class, 'BestHotelsReadExcel']);
+//Route::get('/show-excel', [TopHotelController::class, 'topHotelsReadExcel']);
+

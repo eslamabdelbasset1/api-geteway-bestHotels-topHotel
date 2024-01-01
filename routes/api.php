@@ -21,9 +21,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('best-hotels')->middleware('simulate.latency')->group(function () {
-    Route::resource('/', BestHotelController::class);
+    Route::get('/', [BestHotelController::class, 'allData']);
+    Route::get('/excel', [BestHotelController::class, 'exportToExcel']);
 });
 
 Route::prefix('top-hotels')->middleware('simulate.latency')->group(function () {
-    Route::resource('/', TopHotelController::class);
+    Route::get('/', [TopHotelController::class, 'allData']);
+    Route::get('/excel', [TopHotelController::class, 'exportToExcel']);
 });
+
